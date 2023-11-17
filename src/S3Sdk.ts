@@ -125,7 +125,7 @@ export default class S3Sdk {
     const { ETag } = response
 
     const objectRegion = this.CONFIG.CONNECTION_CONFIG?.region || region
-    const objectUrl = `https://s3.${objectRegion}.amazonaws.com/${bucket}/${key}`
+    const objectUrl = _generateObjectUrl(objectRegion, bucket, key)
 
     const data: PutObjectData = {
       bucket: Bucket,
@@ -280,4 +280,19 @@ export default class S3Sdk {
     }
     return data
   }
+}
+
+/** @ignore */
+function _generateObjectUrl(
+  region: string,
+  bucket: string,
+  key: string
+): string {
+  const keys = key.split('/')
+  const keysSanitized = keys.map(key => {
+    const keySanitized = encodeURIComponent(key).replaceAll('%20', '+')
+    return keySanitized
+  })
+  const keySanitized = keysSanitized.join('/')
+  return `https://s3.${region}.amazonaws.com/${bucket}/${keySanitized}`
 }
