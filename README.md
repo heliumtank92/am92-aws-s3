@@ -48,7 +48,7 @@ import S3Sdk from '@am92/aws-s3'
 const s3Sdk = new S3Sdk()
 export default s3Sdk
 ```
-*In this case, configuration values are read from environment variables*
+*In this case, configuration values are read from environment variables.*
 
 If you wish to pass your custom 'config' to OtpSdk Class, then you can build it as follows:
 
