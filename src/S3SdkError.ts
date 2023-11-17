@@ -15,7 +15,7 @@ const DEFAULT_ERROR_CODE = 'SdSdkError::GENERIC'
  * @typedef {SdSdkError}
  * @extends {Error}
  */
-export default class SdSdkError extends Error {
+export class SdSdkError extends Error {
   /**
    * Flag to identify if error is a custom error.
    */

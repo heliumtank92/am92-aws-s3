@@ -29,7 +29,7 @@ import {
   S3SdkConfig
 } from './TYPES'
 import CONFIG from './CONFIG'
-import SdSdkError from './S3SdkError'
+import { SdSdkError } from './S3SdkError'
 import { INVALID_GEN_PRESIGNED_URL_OPS_ERROR } from './ERRORS'
 
 export default class S3Sdk {
