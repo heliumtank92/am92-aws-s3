@@ -32,10 +32,27 @@ import CONFIG from './CONFIG'
 import { SdSdkError } from './S3SdkError'
 import { INVALID_GEN_PRESIGNED_URL_OPS_ERROR } from './ERRORS'
 
+/**
+ * Class to execute S3 functionlities using AWS S3 Client
+ *
+ * @class
+ */
 export default class S3Sdk {
+  /**
+   * Configurations used for S3Sdk
+   */
   CONFIG: S3SdkConfig
+  /**
+   * AWS S3 Client instance
+   */
   client: S3Client
 
+  /**
+   * Creates an instance of S3Sdk.
+   *
+   * @constructor
+   * @param [config]
+   */
   constructor(config?: S3SdkConfig) {
     const thisConfig = { ...CONFIG, ...config }
     const { CONNECTION_CONFIG } = thisConfig
@@ -54,6 +71,13 @@ export default class S3Sdk {
     this.putObjectAcl = this.putObjectAcl.bind(this)
   }
 
+  /**
+   * Retrieves objects from Amazon S3. To use `GET`, you must have `READ` access to the object.
+   *
+   * @async
+   * @param attrs
+   * @returns
+   */
   async getObject(attrs: GetObjectProps): Promise<GetObjectData> {
     const { bucket = '', key = '', bodyFormat } = attrs || {}
     const { BUCKET } = this.CONFIG
@@ -97,6 +121,13 @@ export default class S3Sdk {
     return data
   }
 
+  /**
+   * Adds an object to a bucket. You must have `WRITE` permissions on a bucket to add an object to it.
+   *
+   * @async
+   * @param attrs
+   * @returns
+   */
   async putObject(attrs: PutObjectProps): Promise<PutObjectData> {
     const {
       bucket = '',
@@ -136,6 +167,13 @@ export default class S3Sdk {
     return data
   }
 
+  /**
+   * Removes an object from a bucket. You must have `WRITE` permissions on a bucket to remove an object from it.
+   *
+   * @async
+   * @param attrs
+   * @returns
+   */
   async deleteObject(attrs: DeleteObjectProps): Promise<DeleteObjectData> {
     const { bucket = '', key = '' } = attrs || {}
     const { BUCKET } = this.CONFIG
@@ -160,6 +198,13 @@ export default class S3Sdk {
     return data
   }
 
+  /**
+   * Retrieves multiple objects from Amazon S3.
+   *
+   * @async
+   * @param attrs
+   * @returns
+   */
   async getObjects(
     attrs: Array<GetObjectProps>
   ): Promise<Array<GetObjectData>> {
@@ -177,6 +222,13 @@ export default class S3Sdk {
     return data
   }
 
+  /**
+   * Adds multiple objects to a bucket.
+   *
+   * @async
+   * @param attrs
+   * @returns
+   */
   async putObjects(
     attrs: Array<PutObjectProps>
   ): Promise<Array<PutObjectData>> {
@@ -194,6 +246,13 @@ export default class S3Sdk {
     return data
   }
 
+  /**
+   * Removes multiple objects from a bucket.
+   *
+   * @async
+   * @param attrs
+   * @returns
+   */
   async deleteObjects(
     attrs: Array<DeleteObjectProps>
   ): Promise<Array<DeleteObjectData>> {
@@ -211,6 +270,13 @@ export default class S3Sdk {
     return data
   }
 
+  /**
+   * Sets the access control list (ACL) permissions for a new or existing object in an S3 bucket. You must have `WRITE_ACP` permission to set the `ACL` of an object.
+   *
+   * @async
+   * @param attrs
+   * @returns
+   */
   async putObjectAcl(attrs: PutObjectAclProps): Promise<PutObjectAclData> {
     const { bucket = '', key = '', acl } = attrs || {}
     const { BUCKET } = this.CONFIG
@@ -233,6 +299,13 @@ export default class S3Sdk {
     return data
   }
 
+  /**
+   * Generates a presigned URL to retrieve or add an object.
+   *
+   * @async
+   * @param attrs
+   * @returns
+   */
   async generatePresignedUrl(
     attrs: GeneratePresignedUrlProps
   ): Promise<GeneratePresignedUrlData> {
