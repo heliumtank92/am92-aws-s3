@@ -69,6 +69,7 @@ export default class S3Sdk {
     this.deleteObjects = this.deleteObjects.bind(this)
 
     this.putObjectAcl = this.putObjectAcl.bind(this)
+    this.generatePresignedUrl = this.generatePresignedUrl.bind(this)
   }
 
   /**
@@ -346,10 +347,14 @@ export default class S3Sdk {
       throw new SdSdkError(error)
     })
 
+    const objectRegion = this.CONFIG.CONNECTION_CONFIG?.region || ''
+    const objectUrl = _generateObjectUrl(objectRegion, bucket, key)
+
     const data: GeneratePresignedUrlData = {
       bucket: Bucket,
       key: Key,
-      presignedUrl
+      presignedUrl,
+      objectUrl
     }
     return data
   }

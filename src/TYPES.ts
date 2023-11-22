@@ -216,6 +216,10 @@ export interface GeneratePresignedUrlData extends DefaultData {
    * Presigned URL
    */
   presignedUrl: string
+  /**
+   * HTTPS url of the object
+   */
+  objectUrl: string
 }
 
 /**
