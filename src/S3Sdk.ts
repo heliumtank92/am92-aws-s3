@@ -371,6 +371,13 @@ function _generateObjectUrl(
     const keySanitized = encodeURIComponent(key).replaceAll('%20', '+')
     return keySanitized
   })
+
+  const bucketHasDot = bucket.includes('.')
   const keySanitized = keysSanitized.join('/')
-  return `https://s3.${region}.amazonaws.com/${bucket}/${keySanitized}`
+
+  if (bucketHasDot) {
+    return `https://s3.${region}.amazonaws.com/${bucket}/${keySanitized}`
+  } else {
+    return `https://${bucket}.s3.${region}.amazonaws.com/${keySanitized}`
+  }
 }
