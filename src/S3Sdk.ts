@@ -157,7 +157,7 @@ export class S3Sdk {
     const { ETag } = response
 
     const objectRegion = this.CONFIG.CONNECTION_CONFIG?.region || region
-    const objectUrl = _generateObjectUrl(objectRegion, bucket, key)
+    const objectUrl = _generateObjectUrl(objectRegion, Bucket, Key)
 
     const data: PutObjectData = {
       bucket: Bucket,
@@ -348,7 +348,7 @@ export class S3Sdk {
     })
 
     const objectRegion = this.CONFIG.CONNECTION_CONFIG?.region || ''
-    const objectUrl = _generateObjectUrl(objectRegion, bucket, key)
+    const objectUrl = _generateObjectUrl(objectRegion, Bucket, Key)
 
     const data: GeneratePresignedUrlData = {
       bucket: Bucket,
