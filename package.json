@@ -22,8 +22,8 @@
     "generate:docs": "npx compodoc -p tsconfig.json",
     "commit:docs": "git add docs && git commit -m 'Docs Updated'"
   },
-  "repository": "git@github.com:heliumtank92/am92-otp.git",
-  "homepage": "https://heliumtank92.github.io/am92-otp",
+  "repository": "git@github.com:heliumtank92/am92-aws-s3.git",
+  "homepage": "https://heliumtank92.github.io/am92-aws-s3",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.451.0",
     "@aws-sdk/s3-request-presigner": "^3.451.0"
@@ -52,5 +52,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": []
+  "keywords": [
+    "aws-sdk",
+    "s3",
+    "s3 sdk"
+  ]
 }
