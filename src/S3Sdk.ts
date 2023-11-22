@@ -37,7 +37,7 @@ import { INVALID_GEN_PRESIGNED_URL_OPS_ERROR } from './ERRORS'
  *
  * @class
  */
-export default class S3Sdk {
+export class S3Sdk {
   /**
    * Configurations used for S3Sdk
    */
