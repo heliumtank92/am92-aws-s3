@@ -203,6 +203,10 @@ export interface GeneratePresignedUrlProps extends DefaultProps {
    * Expiry of the presigned URL in seconds
    */
   expiryInSecs: number
+  /**
+   * S3 object key which includes full path with file extension
+   */
+  key: string
 }
 
 /**

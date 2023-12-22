@@ -43,7 +43,7 @@ export S3_PRESIGNED_EXPIRY_IN_SECS='300'
 
 ## Creating an OtpSdk Instance
 ```javascript
-import S3Sdk from '@am92/aws-s3'
+import { S3Sdk } from '@am92/aws-s3'
 
 const s3Sdk = new S3Sdk()
 export default s3Sdk
@@ -53,7 +53,7 @@ export default s3Sdk
 If you wish to pass your custom 'config' to OtpSdk Class, then you can build it as follows:
 
 ```javascript
-import S3Sdk from '@am92/aws-s3'
+import { S3Sdk } from '@am92/aws-s3'
 
 const config = {
   BUCKET: '',
