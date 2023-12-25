@@ -1,6 +1,6 @@
 {
   "name": "@am92/aws-s3",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "AWS S3 SDK",
   "sideEffects": false,
   "types": "dist/index.d.ts",
