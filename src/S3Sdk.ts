@@ -137,7 +137,7 @@ export class S3Sdk {
       contentType,
       region = ''
     } = attrs || {}
-    const { BUCKET } = this.CONFIG
+    const { BUCKET, CLOUDFRONT_URL } = this.CONFIG
 
     const Bucket: string = bucket || BUCKET || ''
     const Key: string = key || ''
@@ -158,12 +158,17 @@ export class S3Sdk {
 
     const objectRegion = this.CONFIG.CONNECTION_CONFIG?.region || region
     const objectUrl = _generateObjectUrl(objectRegion, Bucket, Key)
+    const objectCloudFrontUrl = _generateObjectCloudfrontUrl(
+      CLOUDFRONT_URL,
+      Key
+    )
 
     const data: PutObjectData = {
       bucket: Bucket,
       key: Key,
       etag: ETag,
-      objectUrl
+      objectUrl,
+      objectCloudFrontUrl
     }
     return data
   }
@@ -311,7 +316,7 @@ export class S3Sdk {
     attrs: GeneratePresignedUrlProps
   ): Promise<GeneratePresignedUrlData> {
     const { bucket = '', key = '', operation, expiryInSecs } = attrs || {}
-    const { BUCKET, PRESIGNED_EXPIRY_IN_SECS } = this.CONFIG
+    const { BUCKET, PRESIGNED_EXPIRY_IN_SECS, CLOUDFRONT_URL } = this.CONFIG
 
     const Bucket: string = bucket || BUCKET || ''
     const Key: string = key || ''
@@ -349,12 +354,17 @@ export class S3Sdk {
 
     const objectRegion = this.CONFIG.CONNECTION_CONFIG?.region || ''
     const objectUrl = _generateObjectUrl(objectRegion, Bucket, Key)
+    const objectCloudFrontUrl = _generateObjectCloudfrontUrl(
+      CLOUDFRONT_URL,
+      Key
+    )
 
     const data: GeneratePresignedUrlData = {
       bucket: Bucket,
       key: Key,
       presignedUrl,
-      objectUrl
+      objectUrl,
+      objectCloudFrontUrl
     }
     return data
   }
@@ -380,4 +390,24 @@ function _generateObjectUrl(
   } else {
     return `https://${bucket}.s3.${region}.amazonaws.com/${keySanitized}`
   }
+}
+
+/** @ignore */
+function _generateObjectCloudfrontUrl(
+  CLOUDFRONT_URL: string = '',
+  key: string
+): string {
+  if (!CLOUDFRONT_URL) {
+    return ``
+  }
+
+  const keys = key.split('/')
+  const keysSanitized = keys.map(key => {
+    const keySanitized = encodeURIComponent(key).replaceAll('%20', '+')
+    return keySanitized
+  })
+
+  const keySanitized = keysSanitized.join('/')
+
+  return `${CLOUDFRONT_URL}/${keySanitized}`
 }

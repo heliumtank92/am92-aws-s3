@@ -33,6 +33,7 @@ export S3_ENABLED='false'
 export S3_REGION='ap-south-1'
 export S3_BUCKET=''
 export S3_PRESIGNED_EXPIRY_IN_SECS='300'
+export S3_CLOUDFRONT_URL=''
 ```
 
 *Note:*

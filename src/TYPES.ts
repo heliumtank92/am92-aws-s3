@@ -9,6 +9,10 @@ export interface S3SdkConfig {
    */
   BUCKET?: string
   /**
+   * CloudFront URL for the S3 bucket
+   */
+  CLOUDFRONT_URL?: string
+  /**
    * Presigned URL expiry in seconds
    */
   PRESIGNED_EXPIRY_IN_SECS?: number
@@ -139,6 +143,10 @@ export interface PutObjectData extends DefaultData {
    * HTTPS url of the uploaded object
    */
   objectUrl: string
+  /**
+   * CloudFront url of the uploaded object
+   */
+  objectCloudFrontUrl: string
 }
 
 /**
@@ -224,6 +232,10 @@ export interface GeneratePresignedUrlData extends DefaultData {
    * HTTPS url of the object
    */
   objectUrl: string
+  /**
+   * CloudFront url of the uploaded object
+   */
+  objectCloudFrontUrl: string
 }
 
 /**
