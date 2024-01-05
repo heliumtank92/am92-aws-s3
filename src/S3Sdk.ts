@@ -359,10 +359,18 @@ export class S3Sdk {
       Key
     )
 
+    let presignedCloudFrontUrl = ''
+    if (objectCloudFrontUrl) {
+      const presignedUrlParts = presignedUrl.split('?')
+      const presignedQuery = presignedUrlParts[1] || ''
+      presignedCloudFrontUrl = `${objectCloudFrontUrl}?${presignedQuery}`
+    }
+
     const data: GeneratePresignedUrlData = {
       bucket: Bucket,
       key: Key,
       presignedUrl,
+      presignedCloudFrontUrl,
       objectUrl,
       objectCloudFrontUrl
     }
@@ -398,7 +406,7 @@ function _generateObjectCloudfrontUrl(
   key: string
 ): string {
   if (!CLOUDFRONT_URL) {
-    return ``
+    return ''
   }
 
   const keys = key.split('/')

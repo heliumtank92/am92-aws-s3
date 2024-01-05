@@ -229,6 +229,10 @@ export interface GeneratePresignedUrlData extends DefaultData {
    */
   presignedUrl: string
   /**
+   * CloudFront Presigned URL
+   */
+  presignedCloudFrontUrl: string
+  /**
    * HTTPS url of the object
    */
   objectUrl: string
