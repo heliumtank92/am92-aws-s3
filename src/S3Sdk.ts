@@ -10,7 +10,10 @@ import {
   DeleteObjectCommand,
   DeleteObjectCommandOutput,
   PutObjectAclCommand,
-  PutObjectAclCommandInput
+  PutObjectAclCommandInput,
+  ListObjectsV2CommandInput,
+  ListObjectsV2Command,
+  ListObjectsV2CommandOutput
 } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { RequestPresigningArguments } from '@smithy/types'
@@ -22,6 +25,8 @@ import {
   GeneratePresignedUrlProps,
   GetObjectData,
   GetObjectProps,
+  ListObjectsV2Data,
+  ListObjectsV2Props,
   PutObjectAclData,
   PutObjectAclProps,
   PutObjectData,
@@ -272,6 +277,68 @@ export class S3Sdk {
         data.push(value)
       }
     })
+
+    return data
+  }
+
+  /**
+   * Lists objects in a bucket or its directories.
+   *
+   * @async
+   * @param [attrs]
+   * @returns
+   */
+  async listObjectsV2(attrs?: ListObjectsV2Props): Promise<ListObjectsV2Data> {
+    const {
+      bucket = '',
+      prefix,
+      continuationToken,
+      startAfter,
+      delimiter,
+      encodingType,
+      maxKeys
+    } = attrs || {}
+    const { BUCKET } = this.CONFIG
+
+    const Bucket: string = bucket || BUCKET || ''
+    const params: ListObjectsV2CommandInput = {
+      Bucket,
+      Prefix: prefix,
+      ContinuationToken: continuationToken,
+      StartAfter: startAfter,
+      Delimiter: delimiter,
+      EncodingType: encodingType,
+      MaxKeys: maxKeys
+    }
+    const command = new ListObjectsV2Command(params)
+
+    const response: ListObjectsV2CommandOutput = await this.client
+      .send(command)
+      .catch(error => {
+        throw new SdSdkError(error)
+      })
+    const {
+      Prefix,
+      IsTruncated,
+      Contents,
+      MaxKeys,
+      KeyCount,
+      ContinuationToken,
+      NextContinuationToken,
+      StartAfter
+    } = response
+
+    const data: ListObjectsV2Data = {
+      bucket: Bucket,
+      prefix: Prefix,
+      isTruncated: IsTruncated,
+      contents: Contents,
+      maxKeys: MaxKeys,
+      keyCount: KeyCount,
+      continuationToken: ContinuationToken,
+      nextContinuationToken: NextContinuationToken,
+      startAfter: StartAfter
+    }
 
     return data
   }
