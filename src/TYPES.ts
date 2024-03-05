@@ -1,3 +1,5 @@
+import { _Object } from '@aws-sdk/client-s3'
+
 /**
  * Type definition of S3Sdk Class Config
  *
@@ -41,11 +43,11 @@ export const DEFAULT_S3_SDK_CONFIG = {
 }
 
 /**
- * Type definition of default props to all S3Sdk methods
+ * Type definition of input props for [S3Sdk.getObject]{@link S3Sdk#getObject}
  *
  * @interface
  */
-interface DefaultProps {
+export interface GetObjectProps {
   /**
    * S3 bucket name
    */
@@ -54,31 +56,6 @@ interface DefaultProps {
    * S3 object key which includes full path with file extension
    */
   key: string
-}
-
-/**
- * Type definition of default props of data returned from S3Sdk methods
- *
- * @interface
- */
-interface DefaultData {
-  /**
-   * S3 bucket name
-   */
-  bucket: string
-  /**
-   * S3 object key which includes full path with file extension
-   */
-  key: string
-}
-
-/**
- * Type definition of input props for [S3Sdk.getObject]{@link S3Sdk#getObject}
- *
- * @interface
- * @extends {DefaultProps}
- */
-export interface GetObjectProps extends DefaultProps {
   /**
    * Expected format of fetched object
    */
@@ -91,7 +68,15 @@ export interface GetObjectProps extends DefaultProps {
  * @interface
  * @extends {DefaultData}
  */
-export interface GetObjectData extends DefaultData {
+export interface GetObjectData {
+  /**
+   * S3 bucket name
+   */
+  bucket: string
+  /**
+   * S3 object key which includes full path with file extension
+   */
+  key: string
   /**
    * Fetched object
    */
@@ -111,9 +96,16 @@ export const DEFAULT_BODY_FORMAT: BufferEncoding = 'base64'
  * Type definition of input props for [S3Sdk.putObject]{@link S3Sdk#putObject}
  *
  * @interface
- * @extends {DefaultProps}
  */
-export interface PutObjectProps extends DefaultProps {
+export interface PutObjectProps {
+  /**
+   * S3 bucket name
+   */
+  bucket?: string
+  /**
+   * S3 object key which includes full path with file extension
+   */
+  key: string
   /**
    * Object to be uploaded
    */
@@ -132,9 +124,16 @@ export interface PutObjectProps extends DefaultProps {
  * Type definition of output props for [S3Sdk.putObject]{@link S3Sdk#putObject}
  *
  * @interface
- * @extends {DefaultData}
  */
-export interface PutObjectData extends DefaultData {
+export interface PutObjectData {
+  /**
+   * S3 bucket name
+   */
+  bucket: string
+  /**
+   * S3 object key which includes full path with file extension
+   */
+  key: string
   /**
    * Entity tag for the uploaded object
    */
@@ -153,17 +152,32 @@ export interface PutObjectData extends DefaultData {
  * Type definition of input props for [S3Sdk.deleteObject]{@link S3Sdk#deleteObject}
  *
  * @interface
- * @extends {DefaultProps}
  */
-export interface DeleteObjectProps extends DefaultProps {}
+export interface DeleteObjectProps {
+  /**
+   * S3 bucket name
+   */
+  bucket?: string
+  /**
+   * S3 object key which includes full path with file extension
+   */
+  key: string
+}
 
 /**
  * Type definition of output props for [S3Sdk.deleteObject]{@link S3Sdk#deleteObject}
  *
  * @interface
- * @extends {DefaultData}
  */
-export interface DeleteObjectData extends DefaultData {
+export interface DeleteObjectData {
+  /**
+   * S3 bucket name
+   */
+  bucket: string
+  /**
+   * S3 object key which includes full path with file extension
+   */
+  key: string
   /**
    * Flag to identify whether object was deleted or not
    */
@@ -171,12 +185,99 @@ export interface DeleteObjectData extends DefaultData {
 }
 
 /**
+ * Type definition of input props for [S3Sdk.listObjectsV2]{@link S3Sdk#listObjectsV2}
+ *
+ * @interface
+ */
+export interface ListObjectsV2Props {
+  /**
+   * S3 bucket name
+   */
+  bucket?: string
+  /**
+   * Limits the response to keys that begin with the specified prefix.
+   */
+  prefix?: string
+  /**
+   * This indicates that the list is being continued on this bucket with a token.
+   */
+  continuationToken?: string
+  /**
+   * `startAfter` is where you want Amazon S3 to start listing from. Amazon S3 starts listing after this specified key. `startAfter` can be any key in the bucket.
+   */
+  startAfter?: string
+  /**
+   * A delimiter is a character that you use to group keys.
+   */
+  delimiter?: string
+  /**
+   * Encoding type used by Amazon S3 to encode object keys in the response.
+   */
+  encodingType?: 'url'
+  /**
+   * Sets the maximum number of keys returned in the response. Defaults to 1,000 key names which is the max limit.
+   */
+  maxKeys?: number
+}
+
+/**
+ * Type definition of output props for [S3Sdk.deleteObject]{@link S3Sdk#deleteObject}
+ *
+ * @interface
+ */
+export interface ListObjectsV2Data {
+  /**
+   * S3 bucket name
+   */
+  bucket: string
+  /**
+   * Limits the response to keys that begin with the specified prefix.
+   */
+  prefix?: string
+  /**
+   * Flag inticating whether all results were returned or not.
+   */
+  isTruncated?: boolean
+  /**
+   * Metadata about each object returned.
+   */
+  contents?: _Object[]
+  /**
+   * Sets the maximum number of keys returned in the response. Defaults to 1,000 key names which is the max limit.
+   */
+  maxKeys?: number
+  /**
+   * The number of keys returned with this request.
+   */
+  keyCount?: number
+  /**
+   * If `continuationToken` was sent with the request, it is included in the response to use for pagination of the list response.
+   */
+  continuationToken?: string
+  /**
+   * This is send when `isTruncated` is true, which means there are more keys in the bucket that can be listed. The next list requests can be continued with this.
+   */
+  nextContinuationToken?: string
+  /**
+   * If `startAfter` was sent with the request, it is included in the response.
+   */
+  startAfter?: string
+}
+
+/**
  * Type definition of input props for [S3Sdk.putObjectAcl]{@link S3Sdk#putObjectAcl}
  *
  * @interface
- * @extends {DefaultProps}
  */
-export interface PutObjectAclProps extends DefaultProps {
+export interface PutObjectAclProps {
+  /**
+   * S3 bucket name
+   */
+  bucket?: string
+  /**
+   * S3 object key which includes full path with file extension
+   */
+  key: string
   /**
    * Type of ACL for the S3 object
    */
@@ -187,9 +288,16 @@ export interface PutObjectAclProps extends DefaultProps {
  * Type definition of output props for [S3Sdk.putObjectAcl]{@link S3Sdk#putObjectAcl}
  *
  * @interface
- * @extends {DefaultData}
  */
-export interface PutObjectAclData extends DefaultData {
+export interface PutObjectAclData {
+  /**
+   * S3 bucket name
+   */
+  bucket: string
+  /**
+   * S3 object key which includes full path with file extension
+   */
+  key: string
   /**
    * Type of ACL for the S3 object
    */
@@ -200,9 +308,16 @@ export interface PutObjectAclData extends DefaultData {
  * Type definition of input props for [S3Sdk.generatePresignedUrl]{@link S3Sdk#generatePresignedUrl}
  *
  * @interface
- * @extends {DefaultProps}
  */
-export interface GeneratePresignedUrlProps extends DefaultProps {
+export interface GeneratePresignedUrlProps {
+  /**
+   * S3 bucket name
+   */
+  bucket?: string
+  /**
+   * S3 object key which includes full path with file extension
+   */
+  key: string
   /**
    * Object operation for which presigned URL is to be generated
    */
@@ -211,19 +326,22 @@ export interface GeneratePresignedUrlProps extends DefaultProps {
    * Expiry of the presigned URL in seconds
    */
   expiryInSecs: number
-  /**
-   * S3 object key which includes full path with file extension
-   */
-  key: string
 }
 
 /**
  * Type definition of output props for [S3Sdk.generatePresignedUrl]{@link S3Sdk#generatePresignedUrl}
  *
  * @interface
- * @extends {DefaultData}
  */
-export interface GeneratePresignedUrlData extends DefaultData {
+export interface GeneratePresignedUrlData {
+  /**
+   * S3 bucket name
+   */
+  bucket: string
+  /**
+   * S3 object key which includes full path with file extension
+   */
+  key: string
   /**
    * Presigned URL
    */
