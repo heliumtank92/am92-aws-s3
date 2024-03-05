@@ -75,12 +75,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
                             <li class="link">
-                                <a href="interfaces/DefaultData.html" data-type="entity-link" >DefaultData</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/DefaultProps.html" data-type="entity-link" >DefaultProps</a>
-                            </li>
-                            <li class="link">
                                 <a href="interfaces/DeleteObjectData.html" data-type="entity-link" >DeleteObjectData</a>
                             </li>
                             <li class="link">
@@ -97,6 +91,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/GetObjectProps.html" data-type="entity-link" >GetObjectProps</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/ListObjectsV2Data.html" data-type="entity-link" >ListObjectsV2Data</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/ListObjectsV2Props.html" data-type="entity-link" >ListObjectsV2Props</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/PutObjectAclData.html" data-type="entity-link" >PutObjectAclData</a>
