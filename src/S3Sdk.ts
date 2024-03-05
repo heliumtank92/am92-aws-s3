@@ -288,7 +288,7 @@ export class S3Sdk {
    * @param attrs
    * @returns
    */
-  async listObjectsV2(attrs: ListObjectsV2Props): Promise<ListObjectsV2Data> {
+  async listObjectsV2(attrs?: ListObjectsV2Props): Promise<ListObjectsV2Data> {
     const {
       bucket = '',
       prefix,
