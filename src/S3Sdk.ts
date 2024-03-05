@@ -285,7 +285,7 @@ export class S3Sdk {
    * Lists objects in a bucket or its directories.
    *
    * @async
-   * @param attrs
+   * @param [attrs]
    * @returns
    */
   async listObjectsV2(attrs?: ListObjectsV2Props): Promise<ListObjectsV2Data> {
