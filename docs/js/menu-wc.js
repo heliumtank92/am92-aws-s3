@@ -111,6 +111,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/PutObjectProps.html" data-type="entity-link" >PutObjectProps</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/S3Object.html" data-type="entity-link" >S3Object</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/S3SdkConfig.html" data-type="entity-link" >S3SdkConfig</a>
                             </li>
                             <li class="link">
