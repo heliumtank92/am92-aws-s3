@@ -1,4 +1,5 @@
-import { _Object } from '@aws-sdk/client-s3'
+import { ObjectStorageClass } from '@aws-sdk/client-s3'
+export { ObjectStorageClass }
 
 /**
  * Type definition of S3Sdk Class Config
@@ -220,6 +221,29 @@ export interface ListObjectsV2Props {
   maxKeys?: number
 }
 
+export interface S3Object {
+  /**
+   * S3 object key which includes full path with file extension.
+   */
+  key?: string
+  /**
+   * Creation date of the object.
+   */
+  lastModified?: Date
+  /**
+   * The entity tag is a hash of the object.
+   */
+  eTag?: string
+  /**
+   * Size in bytes of the object.
+   */
+  size?: number
+  /**
+   * The class of storage used to store the object.
+   */
+  storageClass?: ObjectStorageClass
+}
+
 /**
  * Type definition of output props for [S3Sdk.deleteObject]{@link S3Sdk#deleteObject}
  *
@@ -241,7 +265,7 @@ export interface ListObjectsV2Data {
   /**
    * Metadata about each object returned.
    */
-  contents?: _Object[]
+  contents?: S3Object[]
   /**
    * Sets the maximum number of keys returned in the response. Defaults to 1,000 key names which is the max limit.
    */

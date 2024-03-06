@@ -72,6 +72,7 @@ export class S3Sdk {
     this.getObjects = this.getObjects.bind(this)
     this.putObjects = this.putObjects.bind(this)
     this.deleteObjects = this.deleteObjects.bind(this)
+    this.listObjectsV2 = this.listObjectsV2.bind(this)
 
     this.putObjectAcl = this.putObjectAcl.bind(this)
     this.generatePresignedUrl = this.generatePresignedUrl.bind(this)
@@ -328,11 +329,25 @@ export class S3Sdk {
       StartAfter
     } = response
 
+    const contents = Contents
+      ? Contents.map(Content => {
+          const { Key, LastModified, ETag, Size, StorageClass } = Content
+          const content = {
+            key: Key,
+            lastModified: LastModified,
+            eTag: ETag,
+            size: Size,
+            storageClass: StorageClass
+          }
+          return content
+        })
+      : []
+
     const data: ListObjectsV2Data = {
       bucket: Bucket,
       prefix: Prefix,
       isTruncated: IsTruncated,
-      contents: Contents,
+      contents,
       maxKeys: MaxKeys,
       keyCount: KeyCount,
       continuationToken: ContinuationToken,
